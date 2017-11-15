@@ -1,12 +1,20 @@
 const express = require('express');
 const fs = require('fs-extra');
 
+const ejs = require('ejs');
+
 const pageRouter = require('./src/routes/pageRouter.js');
 const apiRouter = require('./src/routes/apiRouter.js');
 
 const app = express();
 
-const PATH = `${__dirname}/src/views/home.html`;
+// Configure EJS template engine
+app.engine('ejs', ejs.renderFile);
+app.set('view engine', 'ejs');
+app.set('views', `${__dirname}/src/views`);
+
+// Static files
+app.use(express.static(`${__dirname}/public`))
 
 app.use('/', pageRouter);
 app.use('/api/v1', apiRouter);
