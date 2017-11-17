@@ -1,6 +1,5 @@
 const express = require('express');
-const fs = require('fs-extra');
-
+const { Model } = require('objection');
 const ejs = require('ejs');
 
 const pageRouter = require('./src/routes/pageRouter.js');
@@ -12,6 +11,8 @@ const dbConfigObj = require('./knexfile.js');
 const app = express();
 
 const appDb = connectToDb(dbConfigObj.development);
+
+Model.knex(appDb);
 
 app.locals.db = appDb;
 
@@ -30,14 +31,6 @@ app.use('/api/v1', apiRouter);
 app.use((req, res) => {
   res.send('<h1>404. Not found.</h1>')
 });
-
-// app.use('/', (req, res) => {
-//   fs
-//     .readFile(PATH, 'utf-8')
-//     .then(data => {
-//       res.send(data);
-//     })
-//   })
 
 const PORT = process.env.PORT || 3000;
 

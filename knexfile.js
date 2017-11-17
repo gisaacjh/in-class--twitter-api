@@ -5,7 +5,7 @@ const devConfig = {
     port: '3306',
     user: 'yair',
     password: 'whitepoison',
-    database: 'twitter'
+    database: 'twitter_dev'
   },
   migrations: {
     directory: './src/database/migrations'

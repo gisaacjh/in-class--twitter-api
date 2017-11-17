@@ -1,22 +1,19 @@
 const Router = require('express').Router;
+const Tweets = require('../models/Tweets.js');
+const Users = require('../models/Users.js');
 
 const apiRouter = Router();
 
 function getAllUsers (req, res) {
-   const db = req.app.locals.db;
-
-   db
-    .select()
-    .table('users')
+  Users
+    .query()
+    .eager('tweets')
     .then(data => res.json(data));
 }
 
 function getAllTweets (req, res) {
-  const { db } = req.app.locals;
-
-  db
-    .select()
-    .table('tweets')
+  Tweets
+    .query()
     .then(data => res.json(data));
 }
 
