@@ -1,18 +1,18 @@
 const Router = require('express').Router;
-const Tweets = require('../models/Tweets.js');
-const Users = require('../models/Users.js');
+const Tweet = require('../models/Tweet.js');
+const Profile = require('../models/Profile.js');
 
 const apiRouter = Router();
 
 function getAllUsers (req, res) {
-  Users
+  Profile
     .query()
     .eager('tweets')
     .then(data => res.json(data));
 }
 
 function getAllTweets (req, res) {
-  Tweets
+  Tweet
     .query()
     // .then(data => res.json(data));
     .then(data => {
@@ -24,7 +24,7 @@ function getAllTweets (req, res) {
 }
 
 function getTweetById (req, res) {
- Tweets
+ Tweet
   .query()
   .findById(req.params.id)  //esto es igual al SELECT * FROM TableName WHERE Id = 5. por ejemplo.
   .then(tweet => {
@@ -36,7 +36,7 @@ function getTweetById (req, res) {
 }
 
 function createTweet (req, res) {
-  Tweets
+  Tweet
     .query()
     .insert(req.body) // igual al INSERT INTO TableName (nombre , edad ) VALUES (pot, 23)
     .then(newTweet => {
@@ -48,7 +48,7 @@ function createTweet (req, res) {
 }
 
 function updateTweet (req, res) {
-  Tweets
+  Tweet
     .query()
     .updateAndFetchById(req.params.id, req.body)
     .then(tweetUpdated => {
@@ -60,7 +60,7 @@ function updateTweet (req, res) {
   }
 
 function deleteTweetById (req, res) {
-  Tweets
+  Tweet
     .query()
     .deleteById(req.params.id)
     .then(tweetsDeleted => {

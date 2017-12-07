@@ -1,24 +1,24 @@
 const { Model } = require('objection');
 
-class Users extends Model {
+class Profile extends Model {
   static get tableName () {
-    return 'users';
+    return 'profile';
   }
 
   static get relationMappings () {
-    const Tweets = require('./Tweets.js');
+    const Tweet = require('./Tweet.js');
 
     return {
       tweets: {
         relation: Model.HasManyRelation,
-        modelClass: Tweets,
+        modelClass: Tweet,
         join: {
-          from: 'users.id',
-          to: 'tweets.userId'
+          from: 'profile.id',
+          to: 'tweet.profileId'
         }
       }
     };
   }
 }
 
-module.exports = Users;
+module.exports = Profile;

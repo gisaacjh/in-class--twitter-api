@@ -1,13 +1,12 @@
-
 exports.up = function(knex, Promise) {
   return knex
     .schema
-    .table('tweets', table => {
+    .table('tweet', table => {
       table
-        .integer('userId')
+        .integer('profileId')
         .unsigned()
         .references('id')
-        .inTable('users');
+        .inTable('profile');
 
       return table;
     });
@@ -16,10 +15,10 @@ exports.up = function(knex, Promise) {
 exports.down = function(knex, Promise) {
   return knex
     .schema
-    .table('tweets', table => {
-      table.dropForeign('userId');
-      table.dropColumn('userId');
+    .table('tweet', table => {
+      table.dropForeign('profileId');
+      table.dropColumn('profileId');
 
       return table;
-    });
+});
 };
